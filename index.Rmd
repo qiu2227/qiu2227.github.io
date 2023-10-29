@@ -1,0 +1,19 @@
+---
+title: "zq2227 Website"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+# This is Zixuan's hw4 webiste 
+
+Zixuan QIU
+<img src="./self photo.jpg" style="width:100%">
+
+
+
+## About me
+•<i class="fa-brands fa-github"></i>:[zq2227](https://github.com/qiu2227)
+
+•[CV](about.html)
