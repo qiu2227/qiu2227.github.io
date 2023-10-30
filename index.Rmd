@@ -8,12 +8,15 @@ output:
 
 # This is Zixuan's hw4 webiste 
 
-Zixuan QIU
-<img src="./self photo.jpg" style="width:100%">
+<img src="./self photo.jpg" style="width:75%">
 
 
 
 ## About me
-•<i class="fa-brands fa-github"></i>:[zq2227](https://github.com/qiu2227)
+•<i class="fa-brands fa-github"></i>[zq2227](https://github.com/qiu2227)
 
-•[CV](about.html)
+•<i class="fa-regular fa-file"></i>[Resume](about.html)
+
+
+## Flexdashboard
+•<i class="fa-solid fa-chart-line"></i> [Flexdashboard](flexdashboard.html)

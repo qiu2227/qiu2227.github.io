@@ -1,0 +1,91 @@
+---
+title: "flexdashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+# NYC Restaurant Inspections 
+
+```{r setup,include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(p8105.datasets)
+
+library(plotly)
+data(rest_inspec)
+```
+```{r}
+restdata=
+  rest_inspec|>
+  janitor::clean_names()|>
+  filter(!is.na(action) & !is.na(grade) )|>
+  mutate(grade=as.factor(grade))|>
+  mutate(boro=as.factor(boro))|>
+  filter(boro !="Missing")
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+total_obs = nrow(restdata)
+restperc=
+  restdata|>
+  group_by(cuisine_description)|>
+  summarize(count = n())|>
+  mutate(percent = (count / total_obs)*100)|>
+  mutate(cuisine_description=ifelse(percent < 1,  "Other",cuisine_description))|>
+  group_by(cuisine_description) |>
+  summarize(count = sum(count, na.rm = TRUE), 
+            percent = sum(percent, na.rm = TRUE))|>
+  mutate(cuisine_description = ifelse(cuisine_description == "Latin (Cuban, Dominican, Puerto Rican, South & Central American)", "Latin", cuisine_description))|>
+  arrange(desc(percent))
+```
+
+```{r}
+restperc|>
+plot_ly(labels = ~cuisine_description, values = ~percent, type = "pie") |>
+  layout(
+    title = "Cuisine percentage")
+
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+restdata |>
+  mutate(neighbourhood = fct_reorder(boro, score)) |>
+  plot_ly(y = ~score, color= ~ boro, type = "box", colors = "viridis")|>
+  layout(
+    title = "Borought inspection score",
+    xaxis = list(title = "Borought"),  
+    yaxis = list(title = "score") )
+```
+
+
+### Chart C
+
+```{r}
+violatecode=
+  restdata|>
+  mutate(violation_code=as.factor(violation_code))|>
+  group_by(violation_code)|>
+  summarize(obs = n())
+```
+
+```{r}
+violatecode|>
+  mutate(violation_code = fct_reorder(violation_code, obs) |>
+  fct_rev())|>
+  plot_ly(x=~violation_code, y =~obs, type = "bar", color = ~violation_code,colors = "viridis")|>
+  layout(xaxis = list(title = "Violation code"),  
+    yaxis = list(title = "count") )
+```
+
