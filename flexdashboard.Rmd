@@ -20,7 +20,7 @@ data(rest_inspec)
 restdata=
   rest_inspec|>
   janitor::clean_names()|>
-  filter(!is.na(action) & !is.na(grade) )|>
+  filter(!is.na(action) & !is.na(grade)  )|>
   mutate(grade=as.factor(grade))|>
   mutate(boro=as.factor(boro))|>
   filter(boro !="Missing")
