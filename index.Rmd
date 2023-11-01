@@ -8,7 +8,7 @@ output:
 
 # This is Zixuan's hw4 webiste 
 
-<img src="./self photo.jpg" style="width:75%">
+<img src="image/self photo.jpg" style="width:75%">
 
 
 
